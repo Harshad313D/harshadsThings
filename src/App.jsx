@@ -15,6 +15,8 @@ import { HEROES, VILLAINS } from "./components/data/characters";
 import { useSecretCode } from "./hooks/useSecretCode";
 import { useSound } from "./context/SoundContext";
 import CreatorFile from "./components/UI/CreatorFile";
+import Terminal from "./components/UI/Terminal";
+import BriefingPopup from "./components/UI/Notice";
 
 const App = () => {
   const wasPlayingRef = useRef(false);
@@ -24,6 +26,12 @@ const App = () => {
   const [currentView, setCurrentView] = useState("PORTAL");
   const [featuredTab, setFeaturedTab] = useState(ST_TABS[0]);
 
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [terminalInputActive, setTerminalInputActive] = useState(false);
+  const [terminalCode, setTerminalCode] = useState("");
+
+  const [hasClosedBriefing, setHasClosedBriefing] = useState(false);
+
   const { playSfx, stopSfx, setGlobalSound } = useSound();
   useEffect(() => {
     setGlobalSound(audioState.playing);
@@ -31,55 +39,103 @@ const App = () => {
 
   // Secret Code Hook: Type "vecna" to flip reality, "home" to revert.
   // Add brackets to destructure the array!
+  // src/App.jsx
+
+  // Update the Vecna Hook
   const [isUpsideDown] = useSecretCode(
     "vecna",
-    "home",
+    "hawkins",
     () => {
-      wasPlayingRef.current = audioState.playing;
       if (audioState.playing) {
-        audioState.pause();
+        audioState.setVolume(0); // Mute it instead of pausing
         playSfx("vecna");
       }
     },
     () => {
-      if (wasPlayingRef.current) {
-        playSfx("home");
+      if (audioState.playing) {
+        playSfx("hawkins");
         setTimeout(() => {
-          audioState.play();
+          audioState.setVolume(1.0); // Bring it back to HIGH
         }, 4000);
       }
     },
   );
 
+  // 1. CODE RED: Emergency Lockdown
+  const [isCodeRed, setIsCodeRed] = useSecretCode(
+    "codered",
+    "calm",
+    () => playSfx("vecna"), // Reusing the dramatic bong sound
+    () => playSfx("click"),
+  );
+
+  // Auto-reset Code Red after 5 seconds
+  useEffect(() => {
+    if (isCodeRed) {
+      const timer = setTimeout(() => setIsCodeRed(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isCodeRed, setIsCodeRed]);
+
+  // 2. ELEVEN: Telekinetic Surge
+  const [isEleven, setIsEleven] = useSecretCode(
+    "eleven",
+    "calm",
+    () => playSfx("vecna"),
+    () => playSfx("click"),
+  );
+
+  // Auto-reset Eleven after 5 seconds
+  useEffect(() => {
+    if (isEleven) {
+      const timer = setTimeout(() => setIsEleven(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isEleven, setIsEleven]);
+  // Update the Dustin Tab useEffect
+  useEffect(() => {
+    if (activeTab?.id === "dustin") {
+      if (audioState.playing) {
+        audioState.setVolume(0); // Fade out BGM
+      }
+      playSfx("neverending");
+    } else {
+      stopSfx("neverending");
+      if (audioState.playing) {
+        audioState.setVolume(1.0); // Bring BGM back to HIGH
+      }
+    }
+  }, [activeTab, audioState.playing]); // Only watch these
+
   // Add the setter here so we can use it!
   const [isCreatorMode, setIsCreatorMode] = useSecretCode(
-    "golu",
+    "eleven",
     "close",
     () => playSfx("click"),
     () => playSfx("click"),
   );
 
-  useEffect(() => {
-    // If we opened the Dustin/Suzie tab...
-    if (activeTab?.id === "dustin") {
-      // Remember if BGM was playing so we can restore it later
-      wasBgmPlayingForTab.current = audioState.playing;
+  // useEffect(() => {
+  //   // If we opened the Dustin/Suzie tab...
+  //   if (activeTab?.id === "dustin") {
+  //     // Remember if BGM was playing so we can restore it later
+  //     wasBgmPlayingForTab.current = audioState.playing;
 
-      if (audioState.playing) {
-        audioState.pause(); // Stop the creepy music
-      }
-      playSfx("neverending"); // Blast the masterpiece
-    } else {
-      // If we closed the tab or switched to a different one...
-      stopSfx("neverending"); // Cut the song
+  //     if (audioState.playing) {
+  //       audioState.pause(); // Stop the creepy music
+  //     }
+  //     playSfx("neverending"); // Blast the masterpiece
+  //   } else {
+  //     // If we closed the tab or switched to a different one...
+  //     stopSfx("neverending"); // Cut the song
 
-      // If the creepy music was playing before we opened the tab, resume it!
-      if (wasBgmPlayingForTab.current) {
-        audioState.play();
-        wasBgmPlayingForTab.current = false;
-      }
-    }
-  }, [activeTab, audioState, playSfx, stopSfx]);
+  //     // If the creepy music was playing before we opened the tab, resume it!
+  //     if (wasBgmPlayingForTab.current) {
+  //       audioState.play();
+  //       wasBgmPlayingForTab.current = false;
+  //     }
+  //   }
+  // }, [activeTab, audioState, playSfx, stopSfx]);
 
   const handleRandomTabClick = () => {
     // Open the current popup
@@ -98,11 +154,11 @@ const App = () => {
   return (
     // <SoundProvider isSoundOn={audioState.playing}>
     <div
-      className={`w-full h-screen bg-black relative overflow-hidden transition-all duration-[2000ms] ${
-        isUpsideDown
-          ? "shadow-[inset_0_0_200px_rgba(150,0,0,0.8)] rotate-180"
-          : ""
-      }`}
+      className={`w-full h-screen   bg-black relative overflow-hidden transition-all duration-700 ease-in-out
+        ${isUpsideDown ? "shadow-[inset_0_0_200px_rgba(150,0,0,0.8)] rotate-180 scale-105" : "scale-100"} 
+        ${isCodeRed ? "animate-pulse shadow-[inset_0_0_300px_rgba(255,0,0,1)] saturate-200" : ""}
+${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgba(0,0,0,1)] scale-[0.95] blur-[1px]" : ""}
+      `}
     >
       {/* =======================================================
           1. 3D WEBGL BACKGROUND
@@ -119,6 +175,8 @@ const App = () => {
               isActive={audioState.initialized}
               isPortalView={currentView === "PORTAL"}
               isUpsideDown={isUpsideDown}
+              isCodeRed={isCodeRed} // Pass it down!
+              isEleven={isEleven}
             />
           </React.Suspense>
         </Canvas>
@@ -168,12 +226,12 @@ const App = () => {
           {currentView === "PORTAL" && (
             <div className="absolute inset-0 flex flex-col md:flex-row items-end md:items-center justify-between w-full h-full pb-8">
               {/* Left Side: Title & Description (pointer-events-none so portal works behind it) */}
+
               <div className="flex flex-col gap-2 max-w-2xl pointer-events-none animate-in fade-in slide-in-from-left-8 duration-1000">
                 <div className="flex items-center gap-3 text-red-600 font-bold tracking-widest uppercase text-[10px]">
                   <span className="h-[1px] w-8 bg-red-600 shadow-[0_0_8px_red]"></span>
                   THREAT LEVEL: MIDNIGHT // INCIDENT_005
                 </div>
-
                 <h1 className="text-6xl md:text-[8rem] font-black leading-none tracking-tighter font-serif mt-2">
                   <span className="text-white drop-shadow-2xl">HAWKINS</span>
                   <br />
@@ -187,7 +245,6 @@ const App = () => {
                     HAS FALLEN
                   </span>
                 </h1>
-
                 {/* <p className="text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase text-white/60 mt-6 max-w-md leading-relaxed border-l-2 border-red-600 pl-6">
                   The barrier between worlds has collapsed. Spores are spreading
                   through the atmosphere.
@@ -206,7 +263,7 @@ const App = () => {
                         Dimensional breach confirmed. Physics engine status:{" "}
                         <span className="text-red-500">INVERTED</span>. Type{" "}
                         <span className="text-white font-black px-1 underline decoration-red-600 underline-offset-4 tracking-[0.4em]">
-                          HOME
+                          HAWKINS
                         </span>{" "}
                         to recalibrate reality.
                       </>
@@ -220,19 +277,31 @@ const App = () => {
                         not attempt to access the
                         <span className="text-red-600/80 font-black hover:text-red-500 transition-colors cursor-default ml-1 tracking-[0.3em]">
                           VECNA
-                        </span>{" "}
-                        protocol.
+                        </span>
+                        protocol.Dont even try to type it.If everything fail,
+                        initiate CODERED
+                        {/* <span className="text-white font-black tracking-[0.2em] hover:text-red-500 transition-colors cursor-default">
+                          CODERED
+                        </span> */}
+                        .
+                        {/* <span className="hint-glitch">
+
+                          Dont even try to type it
+
+                        </span> */}
                       </>
                     )}
                   </p>
 
                   {/* Add a fake "System Active" line to make it look like a terminal */}
+
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
+
                     <span className="text-[9px] text-red-900 tracking-[0.3em] font-bold uppercase">
                       {isUpsideDown
-                        ? "Keep music always ON"
-                        : "Keep music always ON"}
+                        ? "FRIENDS DON'T LIE, ELEVEN"
+                        : "FRIENDS DON'T LIE, ELEVEN"}
                     </span>
                   </div>
                 </div>
@@ -273,6 +342,53 @@ const App = () => {
             <QuizEngine onClose={() => setCurrentView("PORTAL")} />
           )}
         </div>
+        {/* THE INLINE TERMINAL TRIGGER */}
+        <div className="absolute bottom-4 right-6 md:right-12 flex items-center pointer-events-auto z-50 text-[8px] tracking-[0.5em] uppercase font-mono text-white/20">
+          {!terminalInputActive ? (
+            // State 1: Just innocent looking text.
+            // Removed 'cursor-crosshair' and added 'cursor-default'
+            <span
+              className="cursor-default hover:text-cyan-500/70 transition-colors py-2"
+              onClick={() => {
+                playSfx("click");
+                setTerminalInputActive(true);
+              }}
+            >
+              SYS_REF: HARSHAD DONGARDIVE //11 ..
+            </span>
+          ) : (
+            // State 2: Text turns into a tiny command line
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (terminalCode.toLowerCase() === "codered") {
+                  playSfx("click");
+                  setIsTerminalOpen(true); // Open the terminal!
+                }
+                // Instantly reset the text back to normal
+                setTerminalInputActive(false);
+                setTerminalCode("");
+              }}
+              className="flex items-center text-cyan-500/70 bg-black/50 px-2 py-1 border border-cyan-900/50"
+            >
+              <span>SYS_REF: enter the code // </span>
+              <input
+                autoFocus
+                type="text"
+                value={terminalCode}
+                onChange={(e) => setTerminalCode(e.target.value)}
+                onBlur={() => {
+                  // If they click away, hide the input and reset
+                  setTerminalInputActive(false);
+                  setTerminalCode("");
+                }}
+                className="bg-transparent border-none outline-none w-16 text-[8px] tracking-[0.5em] text-cyan-400 uppercase caret-cyan-400 ml-2"
+                spellCheck="false"
+                autoComplete="off"
+              />
+            </form>
+          )}
+        </div>
       </div>
 
       {/* =======================================================
@@ -282,15 +398,22 @@ const App = () => {
         onEnter={audioState.startExperience}
         isHidden={audioState.initialized}
       />
+      {audioState.initialized && !hasClosedBriefing && (
+        <BriefingPopup onClose={() => setHasClosedBriefing(true)} />
+      )}
       <LorePopup data={activeTab} onClose={() => setActiveTab(null)} />
       <CreatorFile
         isActive={isCreatorMode}
         onClose={() => setIsCreatorMode(false)}
       />
+      <Terminal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
     </div>
     // </SoundProvider>
   );
-};
+};;
 
 // Preload textures globally to prevent lag on initial render
 useTexture.preload([

@@ -1,29 +1,47 @@
 export const QUIZ_QUESTIONS = [
   {
-    question: "What is your weapon of choice in the Upside Down?",
+    question: "Pick your weapon.",
     answers: [
-      { text: "A spiked baseball bat", match: "steve" },
-      { text: "My sheer telekinetic willpower", match: "eleven" },
-      { text: "A grandfather clock", match: "vecna" },
-      { text: "Whatever Dustin builds", match: "dustin" },
+      { text: "A bat with nails in it.", match: "steve" },
+      { text: "My sheer telekinetic rage.", match: "eleven" },
+      { text: "A creepy grandfather clock.", match: "vecna" },
+      { text: "Heavy artillery from my purse.", match: "nancy" },
     ],
   },
   {
-    question: "Ideal Friday night activity?",
+    question: "Ideal Friday night plans?",
     answers: [
-      { text: "Dungeons & Dragons for 10 hours", match: "dustin" },
-      { text: "Babysitting 6 chaotic children", match: "steve" },
-      { text: "Eating Eggos in the woods", match: "eleven" },
-      { text: "Farming trauma from teenagers", match: "vecna" },
+      { text: "D&D in a basement for 12 hours.", match: "mike" },
+      { text: "Babysitting six chaotic children.", match: "steve" },
+      { text: "Possessing the local middle schoolers.", match: "mindflayer" },
+      { text: "Listening to Kate Bush on repeat.", match: "max" },
     ],
   },
   {
-    question: "Pick a snack.",
+    question: "Choose a snack.",
     answers: [
-      { text: "3 Musketeers (Nougat!)", match: "demodog" },
-      { text: "Cold Eggo Waffles", match: "eleven" },
-      { text: "People... I mean, nothing.", match: "mindflayer" },
-      { text: "Scoops Ahoy Ice Cream", match: "steve" },
+      { text: "Cold Eggo waffles.", match: "eleven" },
+      { text: "Black coffee and contemplation.", match: "hopper" },
+      { text: "Scoops Ahoy ice cream.", match: "steve" },
+      { text: "Whatever is wandering in the woods.", match: "demogorgon" },
+    ],
+  },
+  {
+    question: "What is your communication style?",
+    answers: [
+      { text: "Yelling through a walkie-talkie.", match: "dustin" },
+      { text: "Painting the alphabet on a wall.", match: "joyce" },
+      { text: "A sick heavy metal guitar solo.", match: "eddie" },
+      { text: "Telepathic nightmares.", match: "vecna" },
+    ],
+  },
+  {
+    question: "What's your biggest red flag?",
+    answers: [
+      { text: "I literally do not have a face.", match: "demogorgon" },
+      { text: "I run away from all my problems.", match: "eddie" },
+      { text: "I'm a giant, angry shadow tornado.", match: "mindflayer" },
+      { text: "I get trapped in alternate dimensions.", match: "will" },
     ],
   },
 ];

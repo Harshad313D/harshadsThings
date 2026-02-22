@@ -10,7 +10,7 @@ export function SoundProvider({ children }) {
     click: new Audio("/Sound/click.mp3"), 
     hover: new Audio("/Sound/hover.mp3"),
     vecna: new Audio("/Sound/bong.mp3"),
-    home: new Audio("/Sound/home.mp3"),
+    hawkins: new Audio("/Sound/home.mp3"),
     // ADDED: The NeverEnding Story song!
     neverending: new Audio("/Sound/neverending.mp3"), 
   });

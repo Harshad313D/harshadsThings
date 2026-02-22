@@ -88,7 +88,7 @@ import { useState, useEffect, useRef } from "react";
 
 export const useSecretCode = (
   secretCode,
-  resetCode = "home",
+  resetCode = "hawkins",
   onActivate,
   onDeactivate,
 ) => {

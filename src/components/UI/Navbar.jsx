@@ -50,7 +50,7 @@ const Navbar = ({
         onClick={() => handleNavClick("PORTAL")}
       >
         <Zap className="fill-red-600 w-5 h-5 animate-pulse drop-shadow-[0_0_10px_rgba(220,38,38,1)]" />
-        <span className="font-serif tracking-widest text-red-600">ST // V</span>
+        <span className="font-serif tracking-widest text-red-600">HD Things</span>
       </div>
 
       <div className="flex items-center gap-6">

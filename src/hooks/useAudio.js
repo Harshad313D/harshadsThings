@@ -26,11 +26,14 @@ export const useAudio = (url) => {
         setInitialized(true);
         let vol = 0;
         const fadeInterval = setInterval(() => {
-          if (vol < 0.4) {
-            vol += 0.05;
-            audioRef.current.volume = Math.min(vol, 0.4);
-          } else clearInterval(fadeInterval);
-        }, 150);
+          if (vol < 1.0) {
+            // Changed from 0.4 to 1.0 for HIGH volume
+            vol += 0.05; // Smoother step
+            audioRef.current.volume = Math.min(vol, 1.0);
+          } else {
+            clearInterval(fadeInterval);
+          }
+        }, 100);
       })
       .catch((e) => {
         console.warn("Audio blocked:", e);
@@ -55,7 +58,17 @@ export const useAudio = (url) => {
     if (audioRef.current) audioRef.current.play().catch((e) => console.warn(e));
     setPlaying(true);
   }, []);
-
+const setVolume = useCallback((val) => {
+  if (audioRef.current) audioRef.current.volume = val;
+}, []);
   // Make sure to return them here at the bottom:
-  return { playing, toggle, startExperience, initialized, pause, play };
+  return {
+    playing,
+    toggle,
+    startExperience,
+    initialized,
+    pause,
+    play,
+    setVolume,
+  };
 };

@@ -11,5 +11,5 @@
 
 .hint-glitch {
   animation: text-flicker 3s infinite;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.2em;
 }

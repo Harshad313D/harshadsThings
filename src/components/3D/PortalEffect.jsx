@@ -43,7 +43,13 @@ const ImageFadeMaterial = shaderMaterial(
 );
 extend({ ImageFadeMaterial });
 
-const PortalEffect = ({ isActive, isPortalView, isUpsideDown }) => {
+const PortalEffect = ({
+  isActive,
+  isPortalView,
+  isUpsideDown,
+  isCodeRed,
+  isEleven,
+}) => {
   const meshRef = useRef();
   const materialRef = useRef();
   const { viewport } = useThree();
@@ -55,6 +61,10 @@ const PortalEffect = ({ isActive, isPortalView, isUpsideDown }) => {
 
   useFrame((state, delta) => {
     if (!materialRef.current) return;
+
+    // 1. Calculate the physics states based on your secret codes
+    const speedMultiplier = isCodeRed ? 10 : 1;
+    const timeSpeed = isEleven ? 0 : 1;
 
     const targetMouseX = (state.pointer.x + 1) / 2;
     const targetMouseY = (state.pointer.y + 1) / 2;
@@ -69,7 +79,11 @@ const PortalEffect = ({ isActive, isPortalView, isUpsideDown }) => {
       targetMouseY,
       0.1,
     );
-    materialRef.current.uniforms.uTime.value += delta;
+
+    // 2. APPLY THE PHYSICS TO THE SHADER TIME!
+    // Now the liquid portal will boil 10x faster on Code Red, and freeze on Eleven!
+    materialRef.current.uniforms.uTime.value +=
+      delta * speedMultiplier * timeSpeed;
 
     materialRef.current.uniforms.uHover.value = THREE.MathUtils.lerp(
       materialRef.current.uniforms.uHover.value,
@@ -77,7 +91,6 @@ const PortalEffect = ({ isActive, isPortalView, isUpsideDown }) => {
       delta * CONFIG.hoverSpeed,
     );
 
-    // Dynamic Texture Swap based on Secret Code
     materialRef.current.uniforms.uTexture1.value = isUpsideDown
       ? textures[1]
       : textures[0];
@@ -100,7 +113,9 @@ const PortalEffect = ({ isActive, isPortalView, isUpsideDown }) => {
           toneMapped={false}
         />
       </mesh>
-      <Particles />
+
+      {/* 3. Pass the states down to your actual Particles component! */}
+      <Particles isCodeRed={isCodeRed} isEleven={isEleven} />
     </group>
   );
 };

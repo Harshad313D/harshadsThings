@@ -5,7 +5,7 @@ export const CONFIG = {
   audioSrc: "/bgm.mp3",
   textures: {
     front: "/front.webp",
-    back: "/back.jpg",
+    back: "/back.jpeg",
     displacement:
       "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/disturb.jpg",
   },
@@ -15,13 +15,13 @@ export const ST_TABS = [
   {
     id: "dustin",
     label: "Cerebro_Log",
-    title: "RADIO FREQ: 10.743",
+    title: "RADIO FREQ: 10.743 = eleven",
     desc: "Suzie, do you copy? ...Turn it off! ",
   },
   {
     id: "scoops",
     label: "Scoops_Ahoy",
-    title: "TOP SECRET: SCOOPS AHOY",
+    title: "TOP SECRET: eleven",
     desc: "U.S.S. Butterscotch is out of stock. Erica seized the supply. Do NOT ask Steve about his hat.",
   },
   {
