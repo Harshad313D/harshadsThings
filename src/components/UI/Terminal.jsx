@@ -261,7 +261,7 @@ const Terminal = ({ isOpen, onClose }) => {
                     === DEVELOPER DATA ===
                   </span>
                   <br />
-                  1.about, 2.education, 3.experience, 4.projects
+                  1.about, 2.education, 3.experience, 4.projects, 5.socials
                 </div>
                 <div>
                   <span className="text-cyan-400 font-bold">
@@ -350,6 +350,47 @@ const Terminal = ({ isOpen, onClose }) => {
           });
           break;
 
+        case "5":
+        case "socials":
+          newHistory.push({
+            type: "response",
+            content: (
+              <div className="flex flex-col space-y-2 mt-1">
+                <span className="text-green-500">COMMUNICATION CHANNELS:</span>
+                <a
+                  href="https://www.linkedin.com/in/harshad-dongardive-054643204/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-cyan-400 hover:text-white underline w-fit"
+                >
+                  - LINKEDIN
+                </a>
+                <a
+                  href="https://github.com/Harshad313D"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-cyan-400 hover:text-white underline w-fit"
+                >
+                  - GITLAB
+                </a>
+                <a
+                  href="https://instagram.com/hunky_harsh_3"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-cyan-400 hover:text-white underline w-fit"
+                >
+                  - INSTAGRAM
+                </a>
+                <a
+                  href="mailto:hdexamples@gmail.com "
+                  className="text-cyan-400 hover:text-white underline w-fit"
+                >
+                  - EMAIL: [ click to connect]
+                </a>
+              </div>
+            ),
+          });
+          break;
         // --- SYSTEM DATA ---
         case "a":
         case "features":
