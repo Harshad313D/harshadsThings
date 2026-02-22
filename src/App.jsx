@@ -6,7 +6,7 @@ import { useTexture } from "@react-three/drei";
 import SplashGate from "./components/UI/SplashGate";
 import LorePopup from "./components/UI/LorePopup";
 import Navbar from "./components/UI/Navbar";
-import { CONFIG, ST_TABS } from "./components/data/Constants";
+import { CONFIG, ST_TABS } from "./components/data/constants";
 import CardGrid from "./components/Cards/CardGrid";
 import { useAudio } from "./hooks/useAudio";
 import QuizEngine from "./components/Quiz/QuizEngine";
