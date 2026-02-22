@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes text-flicker {
+  0% { opacity: 1; text-shadow: 0 0 2px red; }
+  50% { opacity: 0.8; text-shadow: 0 0 8px red; }
+  100% { opacity: 1; text-shadow: 0 0 2px red; }
+}
+
+.hint-glitch {
+  animation: text-flicker 3s infinite;
+  letter-spacing: 0.5em;
+}
