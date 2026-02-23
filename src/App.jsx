@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { useTexture } from "@react-three/drei";
+import { Stats, StatsGl, useTexture } from "@react-three/drei";
 
 // Make sure these paths match your folder structure exactly!
 import SplashGate from "./components/UI/SplashGate";
@@ -279,7 +279,10 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
                           VECNA
                         </span>
                         protocol.Dont even try to type it.If everything fail,
-                        initiate CODERED
+                        initiate
+                        <span className="text-red-600/80 font-black hover:text-red-500 transition-colors cursor-default ml-1 tracking-[0.3em]">
+                         CODERED 
+                        </span>
                         {/* <span className="text-white font-black tracking-[0.2em] hover:text-red-500 transition-colors cursor-default">
                           CODERED
                         </span> */}

@@ -26,7 +26,7 @@ console.log(
 );
 
 console.log(
-  "%c>> CREATOR OVERRIDE REQUIRED: %cg o l u",
+  "%c>> CREATOR OVERRIDE REQUIRED: %c e l e v e n",
   "color: #22d3ee; font-family: monospace;",
   "color: #ffffff; background: #083344; padding: 2px 6px; font-family: monospace; font-weight: bold;",
 );
@@ -50,6 +50,6 @@ console.log(
 //   "color: #22d3ee; font-size: 14px; font-family: monospace;",
 // );
 // console.log(
-//   "%c>> CREATOR DESIGNATION REQUIRED: [ g o l u ]",
+//   "%c>> CREATOR DESIGNATION REQUIRED: [ e l e v e n]",
 //   "color: #22d3ee; font-size: 14px; font-family: monospace;",
 // );
