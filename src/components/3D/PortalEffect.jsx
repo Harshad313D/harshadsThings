@@ -4,7 +4,7 @@ import { useTexture, shaderMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 import Particles from "./Particles";
-import { CONFIG } from "../data/Constants";
+import { CONFIG } from "../data/siteConstants";
 
 const ImageFadeMaterial = shaderMaterial(
   {
