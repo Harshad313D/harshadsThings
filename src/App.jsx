@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stats, StatsGl, useTexture } from "@react-three/drei";
-
+import ReactGA from "react-ga4";
 // Make sure these paths match your folder structure exactly!
 import SplashGate from "./components/UI/SplashGate";
 import LorePopup from "./components/UI/LorePopup";
@@ -22,6 +22,9 @@ import { log } from "three";
 import { Eye, Heart, MessageSquare, X } from "lucide-react";
 
 const App = () => {
+  const TRACKING_ID = import.meta.env.VITE_G_ID; // Replace with your actual ID
+  ReactGA.initialize(TRACKING_ID);
+
   const wasPlayingRef = useRef(false);
   const wasBgmPlayingForTab = useRef(false);
   const audioState = useAudio(CONFIG.audioSrc);
@@ -39,15 +42,24 @@ const App = () => {
   useEffect(() => {
     setGlobalSound(audioState.playing);
   }, [audioState.playing, setGlobalSound]);
- 
+
   const { data } = useGetStatsQuery();
 
   const [hasLiked] = useToggleLikeMutation();
   const [recordView] = useRecordViewMutation();
   const [submitReview, { isLoading: isSubmitting }] = useAddReviewMutation();
   useEffect(() => {
-    recordView(); 
+    recordView();
   }, []);
+  // Track whenever the user switches views
+  useEffect(() => {
+    // Send a pageview event to Google Analytics
+    ReactGA.send({
+      hitType: "pageview",
+      page: `/${currentView.toLowerCase()}`, // e.g., /portal, /heroes
+      title: `View: ${currentView}`,
+    });
+  }, [currentView]);
 
   const likes = data?.data?.likes || [];
   const views = data?.data?.views || [];
@@ -71,6 +83,11 @@ const App = () => {
         audioState.setVolume(0); // Mute it instead of pausing
         playSfx("vecna");
       }
+      ReactGA.event({
+        category: "Secret Code",
+        action: "Triggered Vecna Protocol",
+        label: "Code: vecna",
+      });
     },
     () => {
       if (audioState.playing) {
@@ -95,7 +112,13 @@ const App = () => {
     if (isCodeRed) {
       const timer = setTimeout(() => setIsCodeRed(false), 5000);
       return () => clearTimeout(timer);
+      
     }
+    ReactGA.event({
+      category: "Secret Code",
+      action: "Triggered Codered Protocol",
+      label: "Code: CODERED",
+    });
   }, [isCodeRed, setIsCodeRed]);
 
   // 2. ELEVEN: Telekinetic Surge
@@ -173,34 +196,33 @@ const App = () => {
     setFeaturedTab(ST_TABS[newIndex]);
   };
 
-
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [reviewName, setReviewName] = useState("");
   const [reviewMsg, setReviewMsg] = useState("");
 
-const handleReviewSubmit = async (e) => {
-  e.preventDefault();
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    // Send the payload to your backend
-    await submitReview({
-      name: reviewName,
-      message: reviewMsg,
-    }).unwrap();
+    try {
+      // Send the payload to your backend
+      await submitReview({
+        name: reviewName,
+        message: reviewMsg,
+      }).unwrap();
 
-    // If successful, clear the form, play the sound, and close the window
-    playSfx("click");
-    setReviewName("");
-    setReviewMsg("");
-    setIsReviewOpen(false);
+      // If successful, clear the form, play the sound, and close the window
+      playSfx("click");
+      setReviewName("");
+      setReviewMsg("");
+      setIsReviewOpen(false);
 
-    // Optional: Log a success message in the console for flavor
-    console.log("SYS_MSG: Transmission successful.");
-  } catch (error) {
-    console.error("SYS_ERR: Transmission failed.", error);
-    // You could also add a temporary red error message in the UI here if it fails
-  }
-};
+      // Optional: Log a success message in the console for flavor
+      console.log("SYS_MSG: Transmission successful.");
+    } catch (error) {
+      console.error("SYS_ERR: Transmission failed.", error);
+      // You could also add a temporary red error message in the UI here if it fails
+    }
+  };
   return (
     // <SoundProvider isSoundOn={audioState.playing}>
     <div
@@ -531,7 +553,7 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
     </div>
     // </SoundProvider>
   );
-};;
+};;;
 
 // Preload textures globally to prevent lag on initial render
 useTexture.preload([
