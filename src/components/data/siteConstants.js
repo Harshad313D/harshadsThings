@@ -21,20 +21,19 @@ export const ST_TABS = [
   {
     id: "scoops",
     label: "Scoops_Ahoy",
-    title: "TOP SECRET: eleven",
-    desc: "U.S.S. Butterscotch is out of stock. Erica seized the supply. Do NOT ask Steve about his hat.",
+    title: "Home: HAWKINS",
+    desc: "U.S.S. Butterscotch supply seized by Erica. Russian transmission decoded: 'The town is the target.' If the system locks, use terminal input: hawkins.",
   },
   {
     id: "eddie",
     label: "Hellfire_Club",
-    title: "EDDIE'S DM NOTES",
-    desc: 'Rule #1: No backing down. Rule #2: "Master of Puppets" is the only acceptable battle anthem. 🎸',
+    title: " cult of VECNA",
+    desc: 'Rule #1: No backing down. Rule #2: "Master of Puppets" is the only acceptable battle anthem. If the clock chimes four times, type "vecna" to survive.',
   },
-
   {
     id: "demo",
     label: "Demo_Diet",
-    title: "SUBJECT: DEMOGORGON",
-    desc: "Diet: Nougat (3 Musketeers) and cats. Allergic to teenagers with spiked bats.",
+    title: "cmd: CODERED",
+    desc: "Subject has breached containment. Standard nougat diets failing. Technicians must execute 'codered' in the SYS_REF terminal immediately.",
   },
 ];

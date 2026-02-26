@@ -37,7 +37,7 @@ const CreatorFile = ({ isActive, onClose }) => {
           </h2>
 
           <p className="text-cyan-300 font-mono text-sm tracking-widest mb-8">
-            CREATIVE DEVELOPER // 2024 CSE GRADUATE
+            CREATIVE DEVELOPER // CSE GRADUATE
           </p>
 
           {/* Skills Grid */}

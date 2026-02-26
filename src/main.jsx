@@ -3,12 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { SoundProvider } from "./context/SoundContext.jsx";
+import store from "./Redux/store.js";
+import { Provider } from "react-redux";
 createRoot(document.getElementById("root")).render(
-  <SoundProvider>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </SoundProvider>,
+  <Provider store={store}>
+    <SoundProvider>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </SoundProvider>
+  </Provider>,
 );
 
 // --- HAWKINS MAINFRAME CONSOLE ---
