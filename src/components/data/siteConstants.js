@@ -15,7 +15,7 @@ export const ST_TABS = [
   {
     id: "dustin",
     label: "Cerebro_Log",
-    title: "RADIO FREQ: 10.743 = eleven",
+    title: "RADIO FREQ: 10.743 = eleven (11)",
     desc: "Suzie, do you copy? ...Turn it off! ",
   },
   {

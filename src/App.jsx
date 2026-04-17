@@ -123,7 +123,7 @@ const App = () => {
 
   // 2. ELEVEN: Telekinetic Surge
   const [isEleven, setIsEleven] = useSecretCode(
-    "eleven",
+    "11",
     "calm",
     () => playSfx("vecna"),
     () => playSfx("click"),
@@ -153,7 +153,7 @@ const App = () => {
 
   // Add the setter here so we can use it!
   const [isCreatorMode, setIsCreatorMode] = useSecretCode(
-    "eleven",
+    "11",
     "close",
     () => playSfx("click"),
     () => playSfx("click"),
@@ -364,9 +364,9 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
               </div>
 
               {/* Right Side: Shifting Classified File */}
-              <div className="hidden md:flex flex-col items-center gap-6 pointer-events-auto animate-in fade-in duration-700 delay-500">
+              <div className="flex flex-col items-center gap-4 md:gap-6 mt-8 md:mt-0 pointer-events-auto animate-in fade-in duration-700 delay-500">
+                {" "}
                 <span className="h-32 w-[1px] bg-gradient-to-b from-transparent via-red-800 to-transparent"></span>
-
                 <div className="flex flex-col items-center gap-8 py-4">
                   <button
                     onClick={handleRandomTabClick}
@@ -376,7 +376,6 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
                     {featuredTab.label}
                   </button>
                 </div>
-
                 <span className="h-32 w-[1px] bg-gradient-to-t from-transparent via-red-800 to-transparent"></span>
               </div>
             </div>
@@ -419,15 +418,17 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
               LIKES: {likes}
             </span>
           </button>
-          <button
-            onClick={() => {
-              setIsReviewOpen(!isReviewOpen);
-              playSfx("click");
-            }}
-            className="flex items-center gap-2 hover:text-white transition-all group relative"
-          >
-            <MessageSquare className="w-4 h-4 group-hover:text-red-500 group-hover:scale-110 transition-all" />
-            <span>Add Review</span>
+          <div className="relative flex items-center">
+            <button
+              onClick={() => {
+                setIsReviewOpen(!isReviewOpen);
+                playSfx("click");
+              }}
+              className="flex items-center gap-2 hover:text-white transition-all group relative"
+            >
+              <MessageSquare className="w-4 h-4 group-hover:text-red-500 group-hover:scale-110 transition-all" />
+              <span>Add Review</span>
+            </button>
 
             {/* NEW: REVIEW POPUP WINDOW */}
             {isReviewOpen && (
@@ -480,7 +481,7 @@ ${isEleven ? "saturate-50 contrast-125 brightness-75 shadow-[inset_0_0_400px_rgb
                 </form>
               </div>
             )}
-          </button>
+          </div>
         </div>
         {/* THE INLINE TERMINAL TRIGGER */}
         <div className="absolute bottom-4 right-6 md:right-12 flex items-center pointer-events-auto z-50 text-[8px] tracking-[0.5em] uppercase font-mono text-white/20">

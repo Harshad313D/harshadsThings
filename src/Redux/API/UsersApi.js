@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const UsersApi = createApi({
   reducerPath: "aUsersApii",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/users/",
+    baseUrl: "https://harshadthings-backend.onrender.com/api/v1/users/",
     credentials: "include",
   }),
 
@@ -36,8 +36,8 @@ export const UsersApi = createApi({
     addReview: builder.mutation({
       query: (body) => ({
         url: "stats/add-contact",
-        method:"POST",
-        body:body
+        method: "POST",
+        body: body,
       }),
     }),
   }),

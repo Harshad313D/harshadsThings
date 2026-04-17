@@ -19,8 +19,8 @@ createRoot(document.getElementById("root")).render(
 console.clear();
 console.log(
   "%c ⚠ WARNING: SYSTEM CRITICAL %c BREACH DETECTED ",
-  "color: white; background: #991b1b; padding: 4px; font-weight: bold; border-radius: 2px 0 0 2px;",
-  "color: #ef4444; background: #450a0a; padding: 4px; font-weight: bold; border-radius: 0 2px 2px 0;",
+  "color: white; background: #991b1b; padding: 6px; font-weight: bold; border-radius: 2px 0 0 2px;",
+  "color: #ef4444; background: #450a0a; padding: 6px; font-weight: bold; border-radius: 0 2px 2px 0;",
 );
 
 console.log(
@@ -43,6 +43,12 @@ console.log(
 console.log(
   "%c>> DO NOT TYPE 'vecna'. REPEAT. DO NOT TYPE 'vecna'.",
   "color: #71717a; font-size: 12px; font-family: monospace; font-style: italic;",
+);
+
+console.log(
+  "%c>> IF NOTHING WORKS,TYPE AND ENTER %cC O D E R E D ",
+  "color: #71717a; font-family: monospace; font-style: italic;",
+  "color: #991b1b; font-family: monospace; font-weight: bold; text-decoration: underline;",
 );
 
 // console.log(

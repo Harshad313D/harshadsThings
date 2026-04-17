@@ -1,5 +1,5 @@
-import React from "react";
-import { Zap, VolumeX } from "lucide-react";
+import React, { useState } from "react";
+import { Zap, VolumeX, Menu, X } from "lucide-react";
 import { useSound } from "../../context/SoundContext";
 // 1. Import the hook
 
@@ -29,28 +29,33 @@ const Navbar = ({
   setCurrentView,
   initialized,
 }) => {
-  // 2. Extract the playSfx function
   const { playSfx } = useSound();
+
+  // NEW: State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const getDelay = (delay) =>
     `transition-all duration-1000 ease-out transform ${initialized ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${delay}`;
 
-  // Helper function to handle view changes with sound
+  // UPDATED: Close menu on mobile when an item is clicked
   const handleNavClick = (view) => {
     playSfx("click");
     setCurrentView(view);
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <nav
-      className={`flex justify-between items-center pointer-events-auto ${getDelay("delay-[500ms]")}`}
+      className={`relative flex justify-between items-center z-50 pointer-events-auto ${getDelay("delay-[500ms]")}`}
     >
       <div
         className="text-xl font-black tracking-tighter uppercase flex items-center gap-3 cursor-pointer"
         onClick={() => handleNavClick("PORTAL")}
       >
         <Zap className="fill-red-600 w-5 h-5 animate-pulse drop-shadow-[0_0_10px_rgba(220,38,38,1)]" />
-        <span className="font-serif tracking-widest text-red-600">HD Things</span>
+        <span className="font-serif tracking-widest text-red-600">
+          HD Things
+        </span>
       </div>
 
       <div className="flex items-center gap-6">
@@ -90,6 +95,7 @@ const Navbar = ({
         </div>
 
         {/* Mute Button (Doesn't need SFX since it toggles the audio itself) */}
+       {/* Mute Button (Doesn't need SFX since it toggles the audio itself) */}
         <button
           onClick={audioState.toggle}
           className="flex items-center justify-center w-10 h-10 bg-red-950/20 border border-red-900/30 rounded-full hover:border-red-500 transition-all pointer-events-auto"
@@ -100,7 +106,37 @@ const Navbar = ({
             <VolumeX className="w-4 h-4 text-red-600" />
           )}
         </button>
+
+        {/* NEW: Mobile Hamburger Toggle */}
+        <button
+          onClick={() => {
+            playSfx("click");
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+          }}
+          className="md:hidden flex items-center justify-center w-10 h-10 bg-red-950/20 border border-red-900/30 rounded-full hover:border-red-500 transition-all pointer-events-auto text-red-600"
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+
       </div>
+      {/* NEW: Mobile Dropdown Menu */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-14 left-0 w-full bg-black/95 border border-red-900/50 shadow-[0_0_15px_rgba(150,0,0,0.3)] backdrop-blur-md flex flex-col items-center gap-6 py-6 z-50 md:hidden animate-in fade-in slide-in-from-top-2">
+          {["PORTAL", "HEROES", "VILLAINS", "QUIZ"].map((view) => (
+            <button
+              key={view}
+              onClick={() => handleNavClick(view)}
+              className={`${
+                currentView === view
+                  ? "text-red-500"
+                  : "text-white/50 hover:text-red-500"
+              } transition-colors uppercase text-xs font-bold tracking-[0.4em]`}
+            >
+              {view}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

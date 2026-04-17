@@ -406,7 +406,7 @@ const Terminal = ({ isOpen, onClose }) => {
           newHistory.push({
             type: "response",
             content:
-              "SYSTEM OVERRIDE CODES:\n- 'vecna' : Triggers the Upside Down inversion.\n- 'hawkins'  : Restores baseline reality.\n- 'eleven'  : Reveals the Creator UI Dossier.",
+              "SYSTEM OVERRIDE CODES:\n- 'vecna' : Triggers the Upside Down inversion.\n- 'hawkins'  : Restores baseline reality.\n- '11'  : Reveals the Creator UI Dossier.",
           });
           break;
 
