@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import {usersApi } from "./API/usersApi.js"
 // Using the path alias for a clean, absolute import
 
 const store = configureStore({
