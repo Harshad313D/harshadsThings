@@ -19,7 +19,7 @@ import Terminal from "./components/UI/Terminal";
 import BriefingPopup from "./components/UI/Notice";
 import { log } from "three";
 import { Eye, Heart, MessageSquare, X } from "lucide-react";
-import { useAddReviewMutation, useGetStatsQuery, useRecordViewMutation, useToggleLikeMutation } from "./Redux/API/usersApi.js";
+import { useAddReviewMutation, useGetStatsQuery, useRecordViewMutation, useToggleLikeMutation } from "./Redux/API/UsersApi.js";
 
 const App = () => {
   const TRACKING_ID = import.meta.env.VITE_G_ID; // Replace with your actual ID
