@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const UsersApi = createApi({
-  reducerPath: "aUsersApii",
+  reducerPath: "UsersApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://harshadthings-backend.onrender.com/api/v1/users/",
     credentials: "include",
